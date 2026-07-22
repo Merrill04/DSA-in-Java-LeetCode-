@@ -11,27 +11,36 @@ public:
 
         int ans = ones;
 
-        string t = "1" + s + "1";
-
-        vector<pair<char,int>> runs;
-
-        int i = 0;
-        while(i < t.length()){
-            char ch = t[i];
-            int len = 0;
-
-            while(i < t.size() && t[i] == ch){
-                len++;
-                i++;
-            }
-
-            runs.push_back({ch, len});
+        if(ans == 0){
+            return ans;
         }
 
-        for(int i = 1; i + 1 < runs.size(); i++){
-            if(runs[i].first == '1' && runs[i-1].first == '0' && runs[i+1].first == '0'){
-                ans = max(ans, ones + runs[i-1].second + runs[i+1].second);
+        vector<int> splits;
+
+        int i = 0;
+        while(i < s.length()){
+            if(s[i] == '0'){
+                int j = i;
+                int count = 0;
+                while(j < s.length() && s[j] == '0'){
+                    count++;
+                    j++;
+                }
+                splits.push_back(count);
+                i = j;
+            }else{
+                int j = i;
+                while(j < s.length() && s[j] == '1'){
+                    j++;
+                }
+
+                i = j;
             }
+        }
+
+        for(int k = 1; k < splits.size(); k++){
+            int res = splits[k] + splits[k - 1];
+            ans = max(ans, res + ones);
         }
 
         return ans;
