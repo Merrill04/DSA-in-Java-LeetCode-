@@ -9,6 +9,7 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+ /* Brute force:
 class Solution {
 public:
     void reverse(vector<int>& v){
@@ -63,6 +64,71 @@ public:
         for(int i = 1; i < v.size(); i += 2){
             reverse(v[i]);
         }
+
+        return v;
+    }
+};
+*/
+class Solution {
+public:
+    void levelorder(TreeNode* root, vector<vector<int>>& v){
+        if(root == NULL){
+            return;
+        }
+
+        queue<TreeNode*> q;
+        q.push(root);
+        int level = 0;
+
+        while(!q.empty()){
+            int s = q.size();
+            vector<int> t;
+            if(level % 2 != 0){
+                stack<int> st;
+            for(int i = 0; i < s; i++){
+                TreeNode* curr = q.front();
+                q.pop();
+
+                st.push(curr -> val);
+                
+                if(curr -> left != NULL){
+                    q.push(curr -> left);
+                }
+
+                if(curr -> right != NULL){
+                    q.push(curr -> right);
+                }
+            }
+
+                while(!st.empty()){
+                    t.push_back(st.top());
+                    st.pop();
+                }
+            }else{
+                for(int i = 0; i < s; i++){
+                TreeNode* curr = q.front();
+                q.pop();
+
+                t.push_back(curr -> val);
+                
+                if(curr -> left != NULL){
+                    q.push(curr -> left);
+                }
+
+                if(curr -> right != NULL){
+                    q.push(curr -> right);
+                }
+            }
+            }
+            level++;
+            v.push_back(t);
+        }
+    }
+
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> v;
+
+        levelorder(root, v);
 
         return v;
     }
