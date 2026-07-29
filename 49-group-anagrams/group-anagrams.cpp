@@ -3,7 +3,8 @@ public:
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
         vector<vector<string>> res;
         vector<string> sorted;
-        
+/*
+//Instead of sorting by creating and array sort string directly.        
         for(int i = 0; i < strs.size(); i++){
             vector<char> temp;
             string s;
@@ -17,6 +18,12 @@ public:
                 s += temp[j];
             }
 
+            sorted.push_back(s);
+        }
+*/
+        for(int i = 0; i < strs.size(); i++){
+            string s = strs[i];
+            sort(s.begin(), s.end());
             sorted.push_back(s);
         }
 
