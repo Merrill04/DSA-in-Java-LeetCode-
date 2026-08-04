@@ -11,6 +11,8 @@
  */
 class Solution {
 public:
+//With extra space
+/*
     void preorder(TreeNode* root, vector<int>& v, int num){
         if(root == NULL){
             return;
@@ -44,6 +46,28 @@ public:
             res += v[i];
         }
 
+        return res;
+    }
+*/
+    int preorder(TreeNode* root, int num){
+        if(root == nullptr){
+            return 0;
+        }
+
+        num = ((num * 10) + root -> val);
+
+        if(root -> left == NULL && root -> right == NULL){
+            return num;
+        }
+        
+        int left = preorder(root -> left, num);
+        int right = preorder(root -> right, num);
+
+        return left + right;
+    }
+
+    int sumNumbers(TreeNode* root) {
+        int res = preorder(root, 0);
         return res;
     }
 };
