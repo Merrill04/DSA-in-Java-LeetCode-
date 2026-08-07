@@ -85,36 +85,21 @@ public:
             return NULL;
         }
 
-        ListNode* head = lists[0];
+        ListNode dummy(-1);
+        ListNode* tail = &dummy;
 
-        int i = 1;
-        while (head == NULL && i < lists.size()) {
-            head = lists[i];
-            i++;
-        }
-
-        if (head == NULL) {
-            return NULL;
-        }
-
-        ListNode* temp = head;
-
-        for (; i < lists.size(); i++) {
-            if (lists[i] == NULL) {
+        for (ListNode* list : lists) {
+            if (list == NULL) {
                 continue;
             }
 
-            while (temp->next != NULL) {
-                temp = temp->next;
-            }
+            tail->next = list;
 
-            temp->next = lists[i];
-
-            while (temp->next != NULL) {
-                temp = temp->next;
+            while (tail->next != NULL) {
+                tail = tail->next;
             }
         }
 
-        return mergesort(head);
+        return mergesort(dummy.next);
     }
 };
