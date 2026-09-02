@@ -48,7 +48,7 @@ public:
         if(word[idx] == '.'){
             for(int i = 0; i < 26; i++){
                 if(root->children[i] != nullptr){
-                    if(searchintrie(root->children[i], word, idx + 1)){
+                    if(searchintrie(root->children[i], word, idx + 1) == true){
                         return true;
                     }
                 }
