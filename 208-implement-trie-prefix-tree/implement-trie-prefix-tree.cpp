@@ -23,12 +23,13 @@ public:
     void insert(string word) {
         TrieNode* curr = root;
 
-        for(char c : word) {
-            if(curr->children[c - 'a'] == nullptr) {
-                curr->children[c - 'a'] = new TrieNode();
+        for(int i = 0; i < word.length(); i++) {
+            if(curr->children[word[i] - 'a'] == nullptr) {
+                TrieNode* newnode = new TrieNode();
+                curr->children[word[i] - 'a'] = newnode; 
             }
 
-            curr = curr->children[c - 'a'];
+            curr = curr->children[word[i] - 'a'];
         }
 
         curr->isterminal = true;
@@ -37,12 +38,12 @@ public:
     bool search(string word) {
         TrieNode* curr = root;
 
-        for(char c : word) {
-            if(curr->children[c - 'a'] == nullptr) {
+        for(int i = 0; i < word.length(); i++) {
+            if(curr->children[word[i] - 'a'] == nullptr) {
                 return false;
             }
 
-            curr = curr->children[c - 'a'];
+            curr = curr->children[word[i] - 'a'];
         }
 
         return curr->isterminal;
@@ -51,12 +52,12 @@ public:
     bool startsWith(string prefix) {
         TrieNode* curr = root;
 
-        for(char c : prefix) {
-            if(curr->children[c - 'a'] == nullptr) {
+        for(int i = 0; i < prefix.length(); i++) {
+            if(curr->children[prefix[i] - 'a'] == nullptr) {
                 return false;
             }
 
-            curr = curr->children[c - 'a'];
+            curr = curr->children[prefix[i] - 'a'];
         }
 
         return true;
