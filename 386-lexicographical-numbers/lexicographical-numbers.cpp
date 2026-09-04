@@ -1,3 +1,5 @@
+//Brute force using trie:
+/*
 class Trie{
     public:
 
@@ -61,6 +63,39 @@ public:
 
         for(int i = 0; i < 10; i++){
             formnum(root, i, 0, ans);
+        }
+
+        return ans;
+    }
+};
+*/
+//Optimized approach:
+class Solution {
+public:
+    void dfs(int curr, int n, vector<int>& ans){
+        if(curr > n){
+            return;
+        }
+
+        ans.push_back(curr);
+
+
+        for(int i = 0; i < 10; i++){
+            int temp = (curr * 10) + i;
+
+            if(temp > n){
+                break;
+            }
+
+            dfs(temp, n, ans);
+        }
+    }
+
+    vector<int> lexicalOrder(int n) {
+        vector<int> ans;
+
+        for(int i = 1; i < 10; i++){
+            dfs(i, n, ans);
         }
 
         return ans;
