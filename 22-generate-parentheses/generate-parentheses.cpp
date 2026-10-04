@@ -27,8 +27,12 @@ public:
             return;
         }
 
-        generate(len, s + '(', res);
-        generate(len, s + ')', res);
+        s += '(';
+        generate(len, s, res);
+        s.pop_back();
+
+        s += ')';
+        generate(len, s, res);
     }
 
     vector<string> generateParenthesis(int n) {
