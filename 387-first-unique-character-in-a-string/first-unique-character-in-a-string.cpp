@@ -11,8 +11,7 @@ public:
 
         for(int i = 0; i < n; i++){
             if(v[s[i] - 'a'] == 1){
-                idx = i;
-                break;
+                return i;
             }
         }
 
