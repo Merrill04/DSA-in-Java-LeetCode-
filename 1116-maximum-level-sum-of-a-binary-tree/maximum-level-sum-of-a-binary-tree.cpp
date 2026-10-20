@@ -11,23 +11,24 @@
  */
 class Solution {
 public:
-    void bfs(TreeNode* root, vector<vector<int>>& v){
+    void bfs(TreeNode* root, vector<int>& level, vector<int>& max){
         if(root == nullptr){
             return;
         }
 
         queue<TreeNode*> q;
+        int lv = 0;
         q.push(root);
 
         while(!q.empty()){
             int s = q.size();
-            vector<int> lv;
+            int sum = 0;
 
             for(int i = 0; i < s; i++){
                 TreeNode* curr = q.front();
                 q.pop();
 
-                lv.push_back(curr -> val);
+                sum += curr -> val;
 
                 if(curr -> left != nullptr){
                     q.push(curr -> left);
@@ -38,31 +39,21 @@ public:
                 }
             }
 
-            v.push_back(lv);
+            lv++;
+
+            if(sum > max[0]){
+                max[0] = sum;
+                level[0] = lv;
+            }
         }
     }
 
     int maxLevelSum(TreeNode* root) {
-        vector<vector<int>> v;
+        vector<int> level(1, -1);
+        vector<int> max(1, INT_MIN);
 
-        bfs(root, v);
+        bfs(root, level, max);
 
-        int level = -1;
-        int max = INT_MIN;
-
-        for(int i = 0; i < v.size(); i++){
-            int sum = 0;
-
-            for(int j = 0; j < v[i].size(); j++){
-                sum += v[i][j];
-            }
-
-            if(sum > max){
-                level = i + 1;
-                max = sum;
-            }
-        }
-
-        return level;
+        return level[0];
     }
 };
