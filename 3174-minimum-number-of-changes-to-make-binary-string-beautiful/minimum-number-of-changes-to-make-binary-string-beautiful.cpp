@@ -1,14 +1,14 @@
 class Solution {
 public:
     int minChanges(string s) {
-        int min = 0;
+        int res = 0;
 
-        for(int i = 0; i < s.length(); i += 2){
+        for(int i = 0; i < s.size(); i += 2){
             if(s[i] != s[i + 1]){
-                min += 1;
+                res += 1;
             }
         }
 
-        return min;
+        return res;
     }
 };
